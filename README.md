@@ -1,8 +1,10 @@
 ## Todo next:
 
-1. Function for showing sample variogram -- p. 29 of HMASD
-2. Function for generating and plotting realizations given a model covariance
-3. test for non-stationarity?
+- parametrize covariance functions better -- e.g. as some kind of type?
+- plot multiple realizations of variogram from given process in a row for model checking
+- show "theoretical" line with variability range (from simulating, probability)
+- optimize covariance function parameters 
+- test for non-stationarity?
 
 
 ## Kriging

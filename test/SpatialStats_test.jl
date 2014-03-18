@@ -3,14 +3,6 @@ using SpatialStats; s = SpatialStats
 using Distributions
 using Distance
 
-function mydraw(p)
-	imgname = tempname()
-	img = PNG(imgname, 8inch, 8inch)
-	draw(img, p)
-	run(`open $imgname`)
-end
-
-
 ntrain=50
 xtrain = rand(ntrain)
 xtest = [0:.01:1]
