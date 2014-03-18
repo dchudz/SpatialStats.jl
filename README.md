@@ -1,3 +1,14 @@
-Nothing here yet. Hopefully soon it'll be a collection of useful stuff for spatial statistics, including kriging / Gaussian processes. (Maybe it'll make sense for GP's to be a separate repository, not sure.)
+## Todo next:
 
-I plan to start working through some examples and build what I need for those examples.
+1. Function for showing sample variogram -- p. 29 of HMASD
+2. Function for generating and plotting realizations given a model covariance
+3. test for non-stationarity?
+
+
+## Kriging
+
+### Example
+
+	fit(KrigeModel(cov=ExponentialCovariance))
+
+##
