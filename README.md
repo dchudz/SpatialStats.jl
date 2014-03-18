@@ -7,10 +7,4 @@
 - test for non-stationarity?
 
 
-## Kriging
-
-### Example
-
-	fit(KrigeModel(cov=ExponentialCovariance))
-
-##
+- put examples in here and convert it to Judo'd markdown? https://github.com/dchudz/Judo.jl/blob/master/src/Judo.jl#L271
