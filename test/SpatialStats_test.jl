@@ -1,4 +1,4 @@
-reload("$(pwd())/src/SpatialStats.jl")
+#reload("$(pwd())/src/SpatialStats.jl")
 using SpatialStats; s = SpatialStats
 using Distributions
 using Distance
