@@ -3,22 +3,7 @@ using Distance
 using Gadfly
 using DataFrames
 
-function cov_exp(x1,x2)
-	D = pairwise(Euclidean(), x1', x2')
-	C = exp(-(abs(D)))
-	C
-end
-
-function cov_sq_exp(x1,x2)
-	D = pairwise(Euclidean(), x1', x2')
-	C = exp(-(100 * D.^2))
-	C
-end
-
-function diagcov(n)
-	diagm(repeat([.01], inner=[n]))
-end
-
+include("covariance.jl")
 
 function variogram(x,y; pairs_per_group = 50)
 	D = pairwise(Euclidean(), x', x')
@@ -36,9 +21,17 @@ function variogram(x,y; pairs_per_group = 50)
 			npairs = size(df,1)
 			)
 		)
-	p = plot(variodf, x=:dist, y=:mean_sq_diff)
-	p
+	plot(variodf, x=:dist, y=:mean_sq_diff)
 end
+
+# should argument be type or object?
+# not sure it works as a type... should maybe make it an object, to be used as the initialization
+function fit(C::SpatialCovarianceStructure, x, y)
+end
+
+function predict(c::SpatialCovarianceStructure, xtrain, ytrain, xtest) 
+end
+
 
 
 

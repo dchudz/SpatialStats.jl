@@ -5,8 +5,8 @@ using DataFrames
 
 ntrain=50
 xtrain = [[rand(ntrain)] [rand(ntrain)]]
+C = s.selfcov(s.SquaredExponentialCov(1,1,.5), xtrain)
 
-C = s.cov_exp(xtrain, xtrain) + .1*s.diagcov(ntrain)
 y = rand(MvNormal(C))
 
 s.variogram(xtrain,y)
