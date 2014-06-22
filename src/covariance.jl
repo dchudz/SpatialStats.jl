@@ -41,6 +41,8 @@ end
 
 function crosscov(c::GammaExponentialCov, x1, x2)
 	D = pairwise(Euclidean(), x1', x2')
+	print(c.gamma)
+	print("\n")
 	C = c.sigma_spatial^2 * exp(-(D./c.length).^c.gamma)
 	C
 end

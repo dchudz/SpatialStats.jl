@@ -1,6 +1,7 @@
 ## Todo next:
 
 - optimize covariance function parameters
+	- need to be able to do constrained optimization for this...
 	- generalize optimize call SpatialStats_test.jl into a "fit" method
 	- make a "predict" method
 - plot multiple realizations of variogram from given process in a row for model checking
