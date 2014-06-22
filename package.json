@@ -1,7 +1,0 @@
-{
-  "devDependencies": {
-    "gulp-util": "~2.2.14",
-    "zmq": "~2.6.0",
-    "gulp": "~3.5.6"
-  }
-}
