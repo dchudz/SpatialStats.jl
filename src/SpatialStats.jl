@@ -34,9 +34,11 @@ end
 
 ## Fit and predict methods
 
-function fit(x::Array{Float64}, y::Vector{Float64}, cov_structure::SpatialCovarianceStructure)
+function fit(x::Array{Float64}, y::Vector{Float64}, cov_structure::SpatialCovarianceStructure, ops)
 	
 	function neg_log_lik(param)
+		print(param)
+		cov_structure.param = param
     	return -logpdf(MvNormal(selfcov(cov_structure, x)), y)
 	end
 
@@ -59,7 +61,7 @@ function fit(x::Array{Float64}, y::Vector{Float64}, cov_structure::SpatialCovari
 		  return neg_log_lik(param)
 	end
 	
-	param, fval, fcount, converged = fminbox(neg_log_lik_with_gradient, cov_structure.param, lower_constraint(cov_structure), upper_constraint(cov_structure))
+	param, fval, fcount, converged = fminbox(neg_log_lik_with_gradient, cov_structure.param, lower_constraint(cov_structure), upper_constraint(cov_structure), ops)
 
 end
 

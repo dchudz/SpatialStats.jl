@@ -7,7 +7,7 @@ type SquaredExponentialCov <: SpatialCovarianceStructure
 	param::Vector
 end
 
-function SquaredExponentialCov(;sigma_spatial=1, length=1, sigma_nonspatial=0)
+function SquaredExponentialCov(;sigma_spatial=1., length=1., sigma_nonspatial=0.2)
 	SquaredExponentialCov([sigma_spatial, length, sigma_nonspatial])
 end
 
@@ -37,7 +37,7 @@ function partial_selfcov_by_param(c::SquaredExponentialCov, x, param_index::Int)
 		return (2/sigma_spatial)*K
 	end
 	if param_index == 2
-		return (length)*(D.^2).*K
+		return (length^(-3))*(D.^2).*K
 	end
 	if param_index == 3
 		return 	diagm(repmat([2sigma_nonspatial], size(x,1)))
