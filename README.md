@@ -1,9 +1,8 @@
 ## Todo next:
 
-- optimize covariance function parameters
-	- need to be able to do constrained optimization for this...
-	- generalize optimize call SpatialStats_test.jl into a "fit" method
-	- make a "predict" method
+- `fit` method, requires gradient of likelihood, following equation 5.9 on 114 of GP book
+	- check that my gradients are right?
+- `predict` method
 - plot multiple realizations of variogram from given process in a row for model checking
 - show "theoretical" line with variability range (from simulating, probability)
 - test for non-stationarity?

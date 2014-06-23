@@ -2,6 +2,8 @@ module SpatialStats
 using Distance
 using Gadfly
 using DataFrames
+using Optim
+using Distributions
 
 include("covariance.jl")
 
@@ -24,15 +26,45 @@ function variogram(x,y; pairs_per_group = 50)
 	plot(variodf, x=:dist, y=:mean_sq_diff)
 end
 
-# should argument be type or object?
-# not sure it works as a type... should maybe make it an object, to be used as the initialization
-function fit(C::SpatialCovarianceStructure, x, y)
+type FittedSpatialModel
+	x_train::Matrix{Float64}
+	y::Vector{Float64}
+	cov_structure::SpatialCovarianceStructure
 end
 
-function predict(c::SpatialCovarianceStructure, xtrain, ytrain, xtest) 
+## Fit and predict methods
+
+function fit(x::Array{Float64}, y::Vector{Float64}, cov_structure::SpatialCovarianceStructure)
+	
+	function neg_log_lik(param)
+    	return -logpdf(MvNormal(selfcov(cov_structure, x)), y)
+	end
+
+	function grad!(param, g)
+		K = selfcov(cov_structure, x)
+		invK = inv(K)
+		for i in 1:length(param)
+			partialK = partial_selfcov_by_param(cov_structure, x, i)
+			# should make this more efficient by only computing the entries we need in the trace
+			firstterm = (y'*invK)*partialK*(invK*y) 
+			secondterm = trace(invK*partialK)/2
+			g[i] = firstterm[1] - secondterm
+		end
+	end
+
+	function neg_log_lik_with_gradient(g, param::Vector)
+		  if !(g === nothing)
+		  	grad!(param, g)
+		  end
+		  return neg_log_lik(param)
+	end
+	
+	param, fval, fcount, converged = fminbox(neg_log_lik_with_gradient, cov_structure.param, lower_constraint(cov_structure), upper_constraint(cov_structure))
+
 end
 
-
+function predict(model::FittedSpatialModel, xtrain, ytrain) 
+end
 
 
 end # module SpatialStats
